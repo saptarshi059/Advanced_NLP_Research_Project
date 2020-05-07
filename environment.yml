@@ -1,0 +1,14 @@
+name: resproj
+channels:
+    - pytorch
+dependencies:
+    - python=3.7
+    - pytorch
+    - numpy
+    - scikit-learn
+    - pandas
+    - tqdm
+    - pip
+    - pip:
+        - spacy
+        - torchtext

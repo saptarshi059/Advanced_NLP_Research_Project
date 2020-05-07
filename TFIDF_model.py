@@ -11,7 +11,7 @@ def TFIDF(data):
     Data_TDM = vectorizer_x.fit_transform(data).toarray()
     return Data_TDM
 
-train_df = pd.read_csv('train.csv')
+train_df = pd.read_csv('train_custom.csv')
 test_df = pd.read_csv('test.csv')
 
 #Majority Classifier Baseline

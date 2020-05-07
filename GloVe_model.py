@@ -14,8 +14,8 @@ LABEL = Field(sequential=False, use_vocab=False) #set use_vocab = False when the
 datafields = [("id", None),("conversation",TEXT), ("category", LABEL)]
 
 #If skip_header is set to False, then the headers also get processed!
-trn = TabularDataset(path="train.csv", format='csv', skip_header=True, fields=datafields)
-tst = TabularDataset(path='test.csv', format='csv', skip_header=True, fields=datafields)
+trn = TabularDataset(path="train_custom.csv", format='csv', skip_header=True, fields=datafields)
+tst = TabularDataset(path='test_custom.csv', format='csv', skip_header=True, fields=datafields)
 
 #Creating the vocabulary using GloVe embeddings.
 TEXT.build_vocab(trn, vectors="glove.42B.300d")

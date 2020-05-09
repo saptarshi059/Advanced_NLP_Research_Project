@@ -38,4 +38,6 @@ These programs are currently configured to run in a **bash** shell. If, for some
 
 Currently, our programs are hard-coded to execute only with EXPERIMENT.sh and the custom data. However, a future release will take care of these issues. Also, please note that since these programs will be running on a smaller dataset, they will not be producing the same results from the paper.
 
+Finally, keep in mind that the first time one runs the GloVe program, it will download the 42B token GloVe model which has a size of 1.88GB and will take some time to download.
+
 [Change Log.](CHANGELOG.md)

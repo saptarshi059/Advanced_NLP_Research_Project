@@ -5,14 +5,25 @@ from collections import Counter
 import pandas as pd
 import numpy as np
 import torch
+import os
+
+#For reproducibility
+torch.manual_seed(0)
+torch.backends.cudnn.deterministic = True
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+#Getting the path to the Data folder.
+pwd = os.getcwd()
+pwd = pwd.replace('Utils','Data')
 
 def TFIDF(data):
-    vectorizer_x = TfidfVectorizer(max_features=2000)
+    vectorizer_x = TfidfVectorizer(max_features=51)
     Data_TDM = vectorizer_x.fit_transform(data).toarray()
     return Data_TDM
 
-train_df = pd.read_csv('train_custom.csv')
-test_df = pd.read_csv('test.csv')
+train_df = pd.read_csv(pwd+'/train_custom.csv')
+test_df = pd.read_csv(pwd+'/test_custom.csv')
 
 #Majority Classifier Baseline
 dummy_clf = DummyClassifier(strategy='most_frequent', random_state=0)
@@ -86,3 +97,6 @@ _, predicted = torch.max(outputs.data, 1)
 correct = (predicted.to(device) == labels.to(device)).sum()
 
 print(f'Accuracy of the network on the {total} test articles: {100 * correct / total} %')
+
+print("Confusion Matrix...")
+print(pd.crosstab(pd.Series(labels.tolist()), pd.Series(predicted.tolist()), rownames=['True'], colnames=['Predicted'], margins=True))

@@ -1,12 +1,23 @@
 from torchtext.data import Iterator, BucketIterator
 from torchtext.data import TabularDataset
+from torch.autograd import Variable
 from torchtext.data import Field
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
+import torchtext
 import torch
+import os
+
+#For reproducibility
+torch.manual_seed(0)
+torch.backends.cudnn.deterministic = True
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+#Getting the path to the Data folder.
+pwd = os.getcwd()
+pwd = pwd.replace('Utils','Data')
 
 TEXT = Field(sequential=True, tokenize=lambda x: x.split(), lower=True) #spacy's performance is really good but it takes some time to execute.
 LABEL = Field(sequential=False, use_vocab=False) #set use_vocab = False when the data is already numerical.
@@ -14,8 +25,8 @@ LABEL = Field(sequential=False, use_vocab=False) #set use_vocab = False when the
 datafields = [("id", None),("conversation",TEXT), ("category", LABEL)]
 
 #If skip_header is set to False, then the headers also get processed!
-trn = TabularDataset(path="train_custom.csv", format='csv', skip_header=True, fields=datafields)
-tst = TabularDataset(path='test_custom.csv', format='csv', skip_header=True, fields=datafields)
+trn = TabularDataset(path=pwd+"/train_custom.csv", format='csv', skip_header=True, fields=datafields)
+tst = TabularDataset(path=pwd+'/test_custom.csv', format='csv', skip_header=True, fields=datafields)
 
 #Creating the vocabulary using GloVe embeddings.
 TEXT.build_vocab(trn, vectors="glove.42B.300d")
@@ -58,9 +69,6 @@ class BatchWrapper:
 
 train_dl = BatchWrapper(train_iter, "conversation", ["category"]) #(iterator, independent_variable, dependent_variable)
 test_dl = BatchWrapper(test_iter, "conversation", ["category"])
-
-from torch.autograd import Variable
-import torchtext
 
 class ClassifierNet(torch.nn.Module):
     def __init__(self, glove, num_class):
@@ -135,3 +143,6 @@ for i in range(total):
         correct += 1
 
 print(f'Accuracy of the network on the {total} test articles: {100 * correct / total} %')
+
+print("Confusion Matrix...")
+print(pd.crosstab(pd.Series(true), pd.Series(test_preds), rownames=['True'], colnames=['Predicted'], margins=True))

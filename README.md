@@ -14,7 +14,7 @@ Unfortunately, the official data could not be uploaded as GitHub does not allow 
 
 ### Notebooks ###
 
-I originally developed these programs with Jupyter. However, for simplicity, I also provide .py versions of the notebooks which runs through all the code at once.
+I originally developed these programs with Jupyter. However, for simplicity, I also provide .py versions of the notebooks which runs through all the code at once. These notebooks also contain some extra code which I was fiddling around with which might come in handy!
 
 ### My Paper ###
 

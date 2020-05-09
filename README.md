@@ -34,3 +34,5 @@ I developed 2 utility scripts INSTALL.sh and EXPERIMENT.sh. The former will inst
 - Then run EXPERIMENT.sh. This will execute both models.
 
 Currently, our programs are hard-coded to execute only with EXPERIMENT.sh and the custom data. However, a future release will take care of these issues. Also, please note that since these programs will be running on a smaller dataset, they will not be producing the same results from the paper.
+
+[Change Log.](CHANGELOG.md)

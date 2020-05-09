@@ -30,7 +30,10 @@ I developed 2 utility scripts INSTALL.sh and EXPERIMENT.sh. The former will inst
 
 ### How to run these programs? ###
 
-- At first, run INSTALL.sh. This will install all the dependencies we need.
+These programs are currently configured to run in a **bash** shell. If, for some reason EXPERIMENT.sh fails, try running bash manually and then executing. Also note that if you have Anaconda on your machine or if you try to execute INSTALL.sh more than once, it might give you errors. However, continue running EXPERIMENT.sh since those errors might indicate a reinstall attempt of Anaconda or recreation of the same virtual environment.
+
+- Before running the programs, be sure to make them executable i.e. run chmod +x INSTALL.sh EXPERIMENT.sh
+- Run INSTALL.sh. This will install all the dependencies we need.
 - Then run EXPERIMENT.sh. This will execute both models.
 
 Currently, our programs are hard-coded to execute only with EXPERIMENT.sh and the custom data. However, a future release will take care of these issues. Also, please note that since these programs will be running on a smaller dataset, they will not be producing the same results from the paper.
